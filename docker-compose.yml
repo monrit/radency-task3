@@ -1,0 +1,39 @@
+version: '3.0'
+
+services:
+  main:
+    container_name: main
+    build: 
+      context: .
+    environment:
+      - PORT=5000
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=notesApp
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_PORT=5432
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 5000:5000
+      - 9229:9229
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    restart: always
+  postgres:
+    container_name: postgres
+    image: postgres:15.3
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=notesApp
+      - POSTGRES_PASSWORD=admin
+      - PG_DATA=/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:

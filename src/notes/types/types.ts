@@ -1,3 +1,5 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export type NoteType = {
     id: number;
     name: string;
@@ -13,8 +15,13 @@ export type StatType = {
     archived: number;
 };
 
-export type StatsType = {
+export class StatsType {
+    @ApiProperty()
     task: StatType;
+
+    @ApiProperty()
     randomThought: StatType;
+
+    @ApiProperty()
     idea: StatType;
-};
+}
