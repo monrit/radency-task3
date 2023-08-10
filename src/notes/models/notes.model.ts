@@ -1,8 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Model, Column, Table, DataType } from "sequelize-typescript";
+import { CreateNoteDto } from "../dto/create-note.dto";
+import { NoteType } from "../types/types";
 
 @Table({ tableName: "notes" })
-export class Note extends Model<Note> {
+export class Note extends Model<Note, CreateNoteDto & Pick<NoteType, "dates" | "isArchived">> {
     toJSON() {
         const object = this.get();
 
